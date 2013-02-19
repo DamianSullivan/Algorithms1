@@ -19,7 +19,9 @@ public class Percolation {
   public void open(int i, int j) {
     // When opening a site, use the weighted union find class
     // to record connectivity.
-    checkIndicies(i, j);
+    if (isOpen(i,j)) {
+      return;
+    }
     connectNeighbors(i, j);
     grid[i-1][j-1] = true;
   }
