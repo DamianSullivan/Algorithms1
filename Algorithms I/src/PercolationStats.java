@@ -1,31 +1,30 @@
 public class PercolationStats {
+  private int T;
   private double mean = 0.0;
   private double stddev = 0.0;
-  private double confidenceHi = 0.0;
-  private double confidenceLo = 0.0;
-  
+  private double variance = 0.0;
+
   // perform T independent computational experiments on an N-by-N grid
   public PercolationStats(int N, int T) {
     checkArguments(N, T);
-    for (int i = 0; i < T; i++) {
-      runPercolationExperiment(N);
+    this.T = T;
+    double[] percolationThreshholds = new double[T];
+    for (int t = 0; t < T; t++) {
+      int percolationThreshhold = 0;
+      Percolation percolation = new Percolation(N);
+      while (!percolation.percolates()) {
+        int randomRow = StdRandom.uniform(N) + 1;
+        int randomCol = StdRandom.uniform(N) + 1;
+        System.out.println(String.format(
+            "Experiment: %d i: %d j: %d", t + 1, randomRow, randomCol));
+        percolation.open(randomRow, randomCol);
+        percolationThreshhold++;
+      }
+      percolationThreshholds[t] = percolationThreshhold / (N * N); 
     }
-  }
-  
-  private void checkArguments(int N, int T) {
-    if (N <= 0 || T <= 0) {
-      throw new IllegalArgumentException(
-          "Grid size or number of experiments cannot be <= 0");
-    }
-  }
-   
-  private void runPercolationExperiment(int N) {
-    Percolation percolation = new Percolation(N);
-    while (!percolation.percolates()) {
-      int randomRow = StdRandom.uniform(N);
-      int randomCol = StdRandom.uniform(N);
-      percolation.open(randomRow, randomCol);
-    }
+    mean = StdStats.mean(percolationThreshholds);
+    stddev = StdStats.stddev(percolationThreshholds);
+    variance = StdStats.var(percolationThreshholds);
   }
 
   // sample mean of percolation threshold
@@ -40,14 +39,21 @@ public class PercolationStats {
   
   // returns upper bound of the 95% confidence interval
   public double confidenceHi() {
-    return confidenceHi;
+    return mean + ((1.96 * variance) / Math.sqrt(T));
   }
   
   // returns lower bound of the 95% confidence interval
   public double confidenceLo() {
-    return confidenceLo;
+    return mean + ((1.96 * variance) / Math.sqrt(T));
   }
 
+  private void checkArguments(int N, int T) {
+    if (N <= 0 || T <= 0) {
+      throw new IllegalArgumentException(
+          "Grid size or number of experiments cannot be <= 0");
+    }
+  }
+  
   // test client, described below
   public static void main(String[] args) {
     int N = Integer.parseInt(args[0]);
