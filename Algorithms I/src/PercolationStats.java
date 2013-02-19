@@ -1,4 +1,3 @@
-
 public class PercolationStats {
   private double mean = 0.0;
   private double stddev = 0.0;
