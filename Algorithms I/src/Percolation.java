@@ -4,12 +4,12 @@ public class Percolation {
   
   // create N-by-N grid, with all sites blocked
   public Percolation(int N) {
-    this.uf = new WeightedQuickUnionUF(N*N + 1); 
+    // TODO(dsullivan): Why does this need +1?
+    this.uf = new WeightedQuickUnionUF((N * N) + 1); 
     this.grid = new boolean[N][N];
 
     for (int i = 0; i < N; i++) {
       for (int j = 0; j < N; j++) {
-        System.out.println(String.format("i: %d j: %d l: %d", i, j, grid.length));
         grid[i][j] = false;
       }
     }
@@ -57,7 +57,7 @@ public class Percolation {
     // Essentially isFull asks if the site is connected to the top.
     // This can be checked using WeightedQuickUnionUF.find();
     checkIndicies(i, j);
-    return isConnectedToFirstRow(i, j);
+    return isOpen(i, j) && isConnectedToFirstRow(i, j);
   }
   
   private boolean isConnectedToFirstRow(int i, int j) {
@@ -72,7 +72,7 @@ public class Percolation {
   // does the system percolate?
   public boolean percolates() {
     // The system percolates if there is a full site in the bottom row.
-    for (int bottomRowSite = 0; bottomRowSite < grid.length; bottomRowSite++) {
+    for (int bottomRowSite = 1; bottomRowSite <= grid.length; bottomRowSite++) {
       if (isFull(grid.length, bottomRowSite)) {
         return true;
       }

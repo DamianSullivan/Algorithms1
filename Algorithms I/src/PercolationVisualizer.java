@@ -1,4 +1,4 @@
-/****************************************************************************
+  /****************************************************************************
  *  Compilation:  javac PercolationVisualizer.java
  *  Execution:    java PercolationVisualizer input.txt
  *  Dependencies: Percolation.java StdDraw.java In.java
@@ -21,7 +21,7 @@ import java.awt.Font;
 public class PercolationVisualizer {
 
     // delay in miliseconds (controls animation speed)
-    private static final int DELAY = 1;
+    private static final int DELAY = 0;
 
     // draw N-by-N percolation system
     public static void draw(Percolation perc, int N) {
@@ -60,22 +60,25 @@ public class PercolationVisualizer {
 
     public static void main(String[] args) {
         int N = Integer.parseInt(args[0]);
+        int T = Integer.parseInt(args[1]);
         
-        System.out.println(String.format("Creating a %d by %d grid", N, N));
         // turn on animation mode
         StdDraw.show(0);
-        // repeatedly read in sites to open and draw resulting system
-        Percolation perc = new Percolation(N);
-        draw(perc, N);
-        StdDraw.show(DELAY);
-        
-        while (!perc.percolates()) {
-          int randomRow = StdRandom.uniform(N) + 1;
-          int randomCol = StdRandom.uniform(N) + 1;
-          System.out.println(String.format("row: %d col: %d", randomRow, randomCol));
-          perc.open(randomRow, randomCol);
-          draw(perc, N);
-          StdDraw.show(DELAY);
+
+        for (int i = 0; i < T; i++) {
+            // repeatedly read in sites to open and draw resulting system
+            Percolation perc = new Percolation(N);
+            draw(perc, N);
+            StdDraw.show(DELAY);
+           
+            while (!perc.percolates()) {
+                int randomRow = StdRandom.uniform(N) + 1;
+                int randomCol = StdRandom.uniform(N) + 1;
+                // System.out.println(String.format("row: %d col: %d", randomRow, randomCol));
+                perc.open(randomRow, randomCol);
+                draw(perc, N);
+                StdDraw.show(DELAY);
+            }
         }
     }
 }
