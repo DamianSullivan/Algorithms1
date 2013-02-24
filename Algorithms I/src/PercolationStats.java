@@ -15,12 +15,18 @@ public class PercolationStats {
       while (!percolation.percolates()) {
         int randomRow = StdRandom.uniform(N) + 1;
         int randomCol = StdRandom.uniform(N) + 1;
+        if (percolation.isOpen(randomRow, randomCol)) continue;
         System.out.println(String.format(
             "Experiment: %d i: %d j: %d", t + 1, randomRow, randomCol));
         percolation.open(randomRow, randomCol);
         percolationThreshhold++;
       }
-      percolationThreshholds[t] = percolationThreshhold / (N * N); 
+      percolationThreshholds[t] =
+          ((double) percolationThreshhold / (double) (N*N));
+    }
+    for (int i = 0; i < percolationThreshholds.length; i++) {
+      System.out.println(String.format("Experiment: %s Threshold: %s",
+          i, percolationThreshholds[i]));
     }
     mean = StdStats.mean(percolationThreshholds);
     stddev = StdStats.stddev(percolationThreshholds);
@@ -31,17 +37,17 @@ public class PercolationStats {
   public double mean() {
     return mean;
   }
-  
+
   // sample standard deviation of percolation threshold
   public double stddev() {
     return stddev;
   }
-  
+
   // returns upper bound of the 95% confidence interval
   public double confidenceHi() {
     return mean + ((1.96 * variance) / Math.sqrt(T));
   }
-  
+
   // returns lower bound of the 95% confidence interval
   public double confidenceLo() {
     return mean + ((1.96 * variance) / Math.sqrt(T));
@@ -53,12 +59,11 @@ public class PercolationStats {
           "Grid size or number of experiments cannot be <= 0");
     }
   }
-  
+
   // test client, described below
   public static void main(String[] args) {
     int N = Integer.parseInt(args[0]);
     int T = Integer.parseInt(args[1]);
-
     PercolationStats percolationStats = new PercolationStats(N, T);
     System.out.println(
         String.format("mean                    = %s", percolationStats.mean()));
