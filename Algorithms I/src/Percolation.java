@@ -1,14 +1,22 @@
 public class Percolation {
-  WeightedQuickUnionUF uf;
+  private WeightedQuickUnionUF uf;
   private boolean[][] grid;
+  
+  // mnemonics
+  private int top_virtual_site;
+  private int bottom_virtual_site;
   
   // create N-by-N grid, with all sites blocked
   public Percolation(int N) {
-    // TODO(dsullivan): Why does this need +1?
-    this.uf = new WeightedQuickUnionUF((N * N) + 1); 
+    // Initialize union-find with extra virtual nodes for top and bottom.  
+    this.uf = new WeightedQuickUnionUF((N*N)+2); 
     this.grid = new boolean[N][N];
-
+    top_virtual_site = 0;
+    bottom_virtual_site = (N*N)+1;   
     for (int i = 0; i < N; i++) {
+      // Connect the virtual sites to the top and bottom rows.
+      uf.union(top_virtual_site, siteId(1, i+1));
+      uf.union(bottom_virtual_site, siteId(grid.length, i+1));
       for (int j = 0; j < N; j++) {
         grid[i][j] = false;
       }
@@ -19,30 +27,23 @@ public class Percolation {
   public void open(int i, int j) {
     // When opening a site, use the weighted union find class
     // to record connectivity.
-    if (isOpen(i,j)) {
-      return;
-    }
+    if (isOpen(i, j)) return;
     connectNeighbors(i, j);
     grid[i-1][j-1] = true;
   }
   
   private void connectNeighbors(int i, int j) {
-    // connect left
-    if (!outOfBounds(i - 1, j) && isOpen(i - 1, j)) {
-      uf.union(siteId(i, j), siteId(i - 1, j));
-    }
-    // connect right
-    if (!outOfBounds(i + 1, j) && isOpen(i + 1, j)) {
-      uf.union(siteId(i, j), siteId(i + 1, j));
-    }
-    // connect above
-    if (!outOfBounds(i, j - 1) && isOpen(i, j - 1)) {
-      uf.union(siteId(i, j), siteId(i, j - 1));
-    }
-    // connect below
-    if (!outOfBounds(i, j + 1) && isOpen(i, j + 1)) {
-      uf.union(siteId(i, j), siteId(i, j + 1));
-    }
+    connectSite(i, j, i-1, j);   // left
+    connectSite(i, j, i+1, j);   // right
+    connectSite(i, j, i,   j-1); // above
+    connectSite(i, j, i,   j+1); // below
+  }
+  
+  private void connectSite(int fromRow, int fromCol,
+      int toRow, int toCol) {
+    if (outOfBounds(toRow, toCol)) return;
+    if (!isOpen(toRow, toCol)) return;
+    uf.union(siteId(fromRow, fromCol), siteId(toRow, toCol));
   }
   
   // is site (row i, column j) open?  
@@ -56,30 +57,13 @@ public class Percolation {
     // A full site is an open site that can be connected to an open site in
     // the top row via a chain of neighboring (left, right, up, down) open
     // sites.
-    // Essentially isFull asks if the site is connected to the top.
-    // This can be checked using WeightedQuickUnionUF.find();
     checkIndicies(i, j);
-    return isOpen(i, j) && isConnectedToFirstRow(i, j);
+    return isOpen(i, j) && uf.connected(top_virtual_site, siteId(i, j));
   }
-  
-  private boolean isConnectedToFirstRow(int i, int j) {
-    for (int topRowSite = 0; topRowSite < grid.length; topRowSite++) {
-      if (uf.connected(siteId(i, j), siteId(1, topRowSite))) {
-        return true;
-      }
-    }
-    return false;
-  }
-  
+
   // does the system percolate?
   public boolean percolates() {
-    // The system percolates if there is a full site in the bottom row.
-    for (int bottomRowSite = 1; bottomRowSite <= grid.length; bottomRowSite++) {
-      if (isFull(grid.length, bottomRowSite)) {
-        return true;
-      }
-    }
-    return false;
+    return uf.connected(top_virtual_site, bottom_virtual_site);
   }
   
   private void checkIndicies(int i, int j) {
@@ -94,6 +78,14 @@ public class Percolation {
   }
   
   private int siteId(int i, int j) {
-    return ((i - 1) * grid.length) + j;
+    // siteId translates the NxN grid coordinates to unique ids for use with the
+    // union-find algorithm. i starts at 1 so i - 1 is the row coordinate of the
+    // 0-based grid. Multiplying by grid.length "fast forwards" to the next
+    // first element of the next row. Adding j forwards to the site, making a
+    // unique id.
+    // Examples:
+    // N=5, (1,1) = ((1-1)*5)+1 = (0*5) + 1 = 1
+    // N=5, (5,5) = ((5-1)*5)+5 = (4*5) + 5 = 20+5 = 25
+    return ((i-1)*grid.length)+j;
   }
 }
