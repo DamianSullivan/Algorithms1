@@ -4,29 +4,31 @@ import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.ValueAxis;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.data.time.Millisecond;
-import org.jfree.data.time.TimeSeries;
-import org.jfree.data.time.TimeSeriesCollection;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
 
 public class RuntimeChart {
   private static final int MAX_SIZE_N = 1000;
-
-  @SuppressWarnings("deprecation")
-  static TimeSeries ts = new TimeSeries("data", Millisecond.class);
-
+  private static XYSeries runningTimeSeries =
+      new XYSeries("Running Time Series");
+  
   public static void main(String[] args) throws InterruptedException {
     RunPercolation runPercolation = new RunPercolation();
     new Thread(runPercolation).start();
 
-    TimeSeriesCollection dataset = new TimeSeriesCollection(ts);
-    JFreeChart chart = ChartFactory.createTimeSeriesChart("GraphTest", "Time",
-        "Value", dataset, true, true, false);
-    final XYPlot plot = chart.getXYPlot();
-    ValueAxis axis = plot.getDomainAxis();
-    axis.setAutoRange(true);
-    axis.setFixedAutoRange(60000.0);
+    final XYSeriesCollection dataset =
+        new XYSeriesCollection(runningTimeSeries);
+
+    final JFreeChart chart = ChartFactory.createXYLineChart(
+        "Running time",     // chart title
+        "Number of inputs", // x axis label
+        "Running time",     // y axis label
+        dataset,            // data
+        PlotOrientation.VERTICAL, true, // include legend
+        true, // tooltips
+        false // urls
+    );
 
     JFrame frame = new JFrame("GraphTest");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -37,10 +39,11 @@ public class RuntimeChart {
     frame.pack();
     frame.setVisible(true);
   }
+  
 
   static class RunPercolation implements Runnable {
     public void run() {
-      for (int N = 0; N < MAX_SIZE_N; N++) {
+      for (int N = 1; N <= MAX_SIZE_N; N++) {
         N++;
         Percolation percolation = new Percolation(N);
         Stopwatch stopWatch = new Stopwatch();
@@ -49,10 +52,11 @@ public class RuntimeChart {
           int randomRow = StdRandom.uniform(N) + 1;
           int randomCol = StdRandom.uniform(N) + 1;
           if (percolation.isOpen(randomRow, randomCol)) continue;
+          System.out.println(String.format(
+              "Experiment: %d i: %d j: %d", N + 1, randomRow, randomCol));
           percolation.open(randomRow, randomCol);
         }
-
-        ts.addOrUpdate(new Millisecond(), stopWatch.elapsedTime());
+        runningTimeSeries.add(N, stopWatch.elapsedTime(), true);
         try {
           Thread.sleep(20);
         } catch (InterruptedException ex) {
