@@ -9,10 +9,10 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 public class RuntimeChart {
-  private static final int MAX_SIZE_N = 1000;
+  private static final int MAX_SIZE_N = 1;
   private static XYSeries runningTimeSeries =
       new XYSeries("Running Time Series");
-  
+
   public static void main(String[] args) throws InterruptedException {
     RunPercolation runPercolation = new RunPercolation();
     new Thread(runPercolation).start();
@@ -34,17 +34,13 @@ public class RuntimeChart {
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     ChartPanel label = new ChartPanel(chart);
     frame.getContentPane().add(label);
-    // Suppose I add combo boxes and buttons here later
-
     frame.pack();
     frame.setVisible(true);
   }
-  
 
   static class RunPercolation implements Runnable {
     public void run() {
       for (int N = 1; N <= MAX_SIZE_N; N++) {
-        N++;
         Percolation percolation = new Percolation(N);
         Stopwatch stopWatch = new Stopwatch();
 

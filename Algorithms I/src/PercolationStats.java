@@ -53,8 +53,8 @@ public class PercolationStats {
     return mean + ((1.96 * variance) / Math.sqrt(T));
   }
 
-  private void checkArguments(int N, int T) {
-    if (N <= 0 || T <= 0) {
+  private void checkArguments(int gridSize, int numberOfExperiments) {
+    if (gridSize <= 0 || numberOfExperiments <= 0) {
       throw new IllegalArgumentException(
           "Grid size or number of experiments cannot be <= 0");
     }
