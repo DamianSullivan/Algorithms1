@@ -16,17 +16,11 @@ public class PercolationStats {
         int randomRow = StdRandom.uniform(N) + 1;
         int randomCol = StdRandom.uniform(N) + 1;
         if (percolation.isOpen(randomRow, randomCol)) continue;
-        System.out.println(String.format(
-            "Experiment: %d i: %d j: %d", t + 1, randomRow, randomCol));
         percolation.open(randomRow, randomCol);
         percolationThreshhold++;
       }
       percolationThreshholds[t] =
           ((double) percolationThreshhold / (double) (N*N));
-    }
-    for (int i = 0; i < percolationThreshholds.length; i++) {
-      System.out.println(String.format("Experiment: %s Threshold: %s",
-          i, percolationThreshholds[i]));
     }
     mean = StdStats.mean(percolationThreshholds);
     stddev = StdStats.stddev(percolationThreshholds);

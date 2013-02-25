@@ -8,6 +8,7 @@ public class Percolation {
 
   // create N-by-N grid, with all sites blocked
   public Percolation(int N) {
+    checkGridSize(N);
     // Initialize union-find with extra virtual nodes for top and bottom.
     this.uf = new WeightedQuickUnionUF((N*N)+2);
     this.grid = new boolean[N][N];
@@ -22,7 +23,14 @@ public class Percolation {
       }
     }
   }
-
+  
+  private void checkGridSize(int N) {
+    if (N <= 0) {
+      throw new IndexOutOfBoundsException(String.format(
+          "Grid size %s is out of bounds", N));
+    }
+  }
+  
   // open site (row i, column j) if it is not already
   public void open(int i, int j) {
     // When opening a site, use the weighted union find class
