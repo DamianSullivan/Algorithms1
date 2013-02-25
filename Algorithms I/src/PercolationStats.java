@@ -59,12 +59,9 @@ public class PercolationStats {
     int N = Integer.parseInt(args[0]);
     int T = Integer.parseInt(args[1]);
     PercolationStats percolationStats = new PercolationStats(N, T);
-    System.out.println(
-        String.format("mean                    = %s", percolationStats.mean()));
-    System.out.println(
-        String.format("stddev                  = %s", percolationStats.stddev()));
-    System.out.println(
-        String.format("95%% confidence interval = %s, %s",
-            percolationStats.confidenceLo(), percolationStats.confidenceHi()));
+    StdOut.printf("mean                    = %s%n", percolationStats.mean());
+    StdOut.printf("stddev                  = %s%n", percolationStats.stddev());
+    StdOut.printf("95%% confidence interval = %s, %s%n",
+            percolationStats.confidenceLo(), percolationStats.confidenceHi());
   }
 }
