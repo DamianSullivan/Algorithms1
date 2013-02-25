@@ -66,7 +66,12 @@ public class Percolation {
     // the top row via a chain of neighboring (left, right, up, down) open
     // sites.
     checkIndicies(i, j);
-    return isOpen(i, j) && uf.connected(topVirtualSite, siteId(i, j));
+    if (isOpen(i, j) && uf.connected(topVirtualSite, siteId(i, j))) {
+      // TODO(dsullivan): Check for backwash.
+      return true;
+    } else {
+      return false;
+    }
   }
 
   // does the system percolate?
