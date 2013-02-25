@@ -2,9 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="/Users/dsullivan/jars/jfreechart-1.0.14/lib/jfreechart-1.0.14.jar" sourcepath="/Users/dsullivan/jars/jfreechart-1.0.14/lib"/>
+	<classpathentry kind="lib" path="/Users/dsullivan/jars/jfreechart-1.0.14/lib/jfreechart-1.0.14.jar" sourcepath="/Users/dsullivan/jars/jfreechart-1.0.14/jfreechart-1.0.14-sources.jar"/>
 	<classpathentry kind="lib" path="/Users/dsullivan/jars/algorithms/algs4.jar"/>
 	<classpathentry kind="lib" path="/Users/dsullivan/jars/algorithms/stdlib.jar"/>
 	<classpathentry kind="lib" path="/Users/dsullivan/jars/jfreechart-1.0.14/lib/jcommon-1.0.17.jar"/>
+	<classpathentry kind="lib" path="/Users/dsullivan/jars/junit-4.11.jar" sourcepath="/Users/dsullivan/jars/junit-4.11-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/dsullivan/jars/hamcrest-core-1.3-sources.jar"/>
+	<classpathentry kind="lib" path="/Users/dsullivan/jars/hamcrest-core-1.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
