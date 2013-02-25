@@ -61,14 +61,9 @@ public class PercolationTest {
   }
 
   @Test
-  public void testPercolationBeforeOpen() {
-    Percolation percolation = new Percolation(1);
-    assertFalse(percolation.percolates());
-  }
-
-  @Test
   public void testEdgeCases_1x1() {
     Percolation percolation = new Percolation(1);
+    assertFalse(percolation.percolates());
     percolation.open(1, 1);
     assertTrue(percolation.isOpen(1, 1));
     assertTrue(percolation.percolates());
@@ -77,6 +72,7 @@ public class PercolationTest {
   @Test
   public void testEdgeCases_2x2() {
     Percolation percolation = new Percolation(2);
+    assertFalse(percolation.percolates());
     percolation.open(2, 2);
     assertTrue(percolation.isOpen(2, 2));
     assertFalse(percolation.percolates());

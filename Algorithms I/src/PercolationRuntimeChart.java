@@ -8,7 +8,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-public class RuntimeChart {
+public class PercolationRuntimeChart {
   private static final int MAX_SIZE_N = 1;
   private static XYSeries runningTimeSeries =
       new XYSeries("Running Time Series");
