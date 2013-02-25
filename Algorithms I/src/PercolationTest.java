@@ -24,7 +24,7 @@ public class PercolationTest {
       percolation.open(row, 1);
     }
     
-    // open "backwash" sites
+    // open "backwash" site
     percolation.open(10, 10);
     
     assertTrue(percolation.percolates());
@@ -32,19 +32,19 @@ public class PercolationTest {
   }
 
   @Test(expected=IndexOutOfBoundsException.class)
-  public void testIndicesOutOfBounds_rowTooSmall() {
+  public void testIndicesOutOfBoundsRowTooSmall() {
     Percolation percolation = new Percolation(10);
     percolation.open(0, 6);
   }
 
   @Test(expected=IndexOutOfBoundsException.class)
-  public void testIndicesOutOfBounds_rowTooBig() {
+  public void testIndicesOutOfBoundsRowTooBig() {
     Percolation percolation = new Percolation(10);
     percolation.open(11, 6);
   }
 
   @Test(expected=IndexOutOfBoundsException.class)
-  public void testIndicesOutOfBounds_colTooSmall() {
+  public void testIndicesOutOfBoundsColTooSmall() {
     Percolation percolation = new Percolation(10);
     percolation.open(6, 0);
   }
@@ -73,6 +73,7 @@ public class PercolationTest {
   public void testEdgeCases_2x2() {
     Percolation percolation = new Percolation(2);
     assertFalse(percolation.percolates());
+    percolation.open(1, 1);
     percolation.open(2, 2);
     assertTrue(percolation.isOpen(2, 2));
     assertFalse(percolation.percolates());

@@ -1,6 +1,7 @@
 public class Percolation {
   private WeightedQuickUnionUF uf;
   private boolean[][] grid;
+  private int N;
 
   // mnemonics
   private int topVirtualSite;
@@ -10,6 +11,7 @@ public class Percolation {
   public Percolation(int N) {
     checkGridSize(N);
     // Initialize union-find with extra virtual nodes for top and bottom.
+    this.N = N;
     this.uf = new WeightedQuickUnionUF((N*N)+2);
     this.grid = new boolean[N][N];
     topVirtualSite = 0;
@@ -23,14 +25,14 @@ public class Percolation {
       }
     }
   }
-  
+
   private void checkGridSize(int N) {
     if (N <= 0) {
       throw new IndexOutOfBoundsException(String.format(
           "Grid size %s is out of bounds", N));
     }
   }
-  
+
   // open site (row i, column j) if it is not already
   public void open(int i, int j) {
     // When opening a site, use the weighted union find class
@@ -76,7 +78,11 @@ public class Percolation {
 
   // does the system percolate?
   public boolean percolates() {
-    return uf.connected(topVirtualSite, bottomVirtualSite);
+    if (N == 1) {
+      return (isOpen(1, 1));
+    } else {
+      return uf.connected(topVirtualSite, bottomVirtualSite);
+    }
   }
 
   private void checkIndicies(int i, int j) {
