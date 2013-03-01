@@ -26,10 +26,10 @@ public class Percolation {
     }
   }
 
-  private void checkGridSize(int N) {
-    if (N <= 0) {
+  private void checkGridSize(int gridSize) {
+    if (gridSize <= 0) {
       throw new IndexOutOfBoundsException(String.format(
-          "Grid size %s is out of bounds", N));
+          "Grid size %s is out of bounds", gridSize));
     }
   }
 
@@ -68,12 +68,7 @@ public class Percolation {
     // the top row via a chain of neighboring (left, right, up, down) open
     // sites.
     checkIndicies(i, j);
-    if (isOpen(i, j) && uf.connected(topVirtualSite, siteId(i, j))) {
-      // TODO(dsullivan): Check for backwash.
-      return true;
-    } else {
-      return false;
-    }
+    return isOpen(i, j) && uf.connected(topVirtualSite, siteId(i, j));
   }
 
   // does the system percolate?

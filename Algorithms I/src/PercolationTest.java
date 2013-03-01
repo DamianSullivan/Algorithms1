@@ -23,34 +23,34 @@ public class PercolationTest {
     for (int row = 1; row <= 10; row++) {
       percolation.open(row, 1);
     }
-    
+
     // open "backwash" site
     percolation.open(10, 10);
-    
+
     assertTrue(percolation.percolates());
     assertFalse(percolation.isFull(10, 10));
   }
 
-  @Test(expected=IndexOutOfBoundsException.class)
+  @Test(expected = IndexOutOfBoundsException.class)
   public void testIndicesOutOfBoundsRowTooSmall() {
     Percolation percolation = new Percolation(10);
     percolation.open(0, 6);
   }
 
-  @Test(expected=IndexOutOfBoundsException.class)
+  @Test(expected = IndexOutOfBoundsException.class)
   public void testIndicesOutOfBoundsRowTooBig() {
     Percolation percolation = new Percolation(10);
     percolation.open(11, 6);
   }
 
-  @Test(expected=IndexOutOfBoundsException.class)
+  @Test(expected = IndexOutOfBoundsException.class)
   public void testIndicesOutOfBoundsColTooSmall() {
     Percolation percolation = new Percolation(10);
     percolation.open(6, 0);
   }
 
-  @Test(expected=IndexOutOfBoundsException.class)
-  public void testIndicesOutOfBounds_colTooBig() {
+  @Test(expected = IndexOutOfBoundsException.class)
+  public void testIndicesOutOfBoundsColTooBig() {
     Percolation percolation = new Percolation(10);
     percolation.open(6, 11);
   }
