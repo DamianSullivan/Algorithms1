@@ -3,7 +3,7 @@
  * that the item removed is chosen uniformly at random from items in the data
  * structure. Create a generic data type RandomizedQueue that implements the
  * following API:
- * 
+ *
  *  Throw a java.lang.NullPointerException if the client attempts to add a null
  *  item; throw a java.util.NoSuchElementException if the client attempts to
  *  sample or dequeue an item from an empty randomized queue; throw a
@@ -11,7 +11,7 @@
  *  method in the iterator; throw a java.util.NoSuchElementException if the
  *  client calls the next() method in the iterator and there are no more items
  *  to return.
- *  
+ *
  *  Your randomized queue implementation should support each randomized queue
  *  operation (besides creating an iterator) in constant amortized time and use
  *  space proportional to the number of items currently in the queue. That is,
@@ -23,13 +23,13 @@
  *  amount of extra memory per iterator. The order of two or more iterators to
  *  the same randomized queue should be mutually independent; each iterator
  *  must maintain its own random order.
- *   
+ *
  *  Performance Requirements:
  *  Non-iterator operations     Constant amortized time
  *  Iterator constructor        linear in current # of items
  *  Other iterator operations   Constant worst-case time
  *  Non-iterator memory use     Linear in current # of items
- *  Memory per iterator         Constant 
+ *  Memory per iterator         Constant
  */
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
