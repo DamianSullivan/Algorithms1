@@ -3,21 +3,21 @@ import java.util.NoSuchElementException;
 /*
  * A linked list implementation of a queue. Queues are Last In First Out (LIFO).  
  */
-public class LinkedQueue {
+public class LinkedQueue<Item> {
 
-  private Node first;
-  private Node last;
+  private Node<Item> first;
+  private Node<Item> last;
   
-  private class Node {
-    String item;
-    Node next;
+  private class Node<I> {
+    I item;
+    Node<I> next;
   }
 
   public boolean isEmpty() {
     return first == null;
   }
   
-  public void enqueue(String item) {
+  public void enqueue(Item item) {
     // Check if the item is null.
     if (item == null) {
       throw new NullPointerException();
@@ -25,11 +25,11 @@ public class LinkedQueue {
     
     // Save the old last because a new link will be added to the end of it which
     // just means we will be setting the next item to the newly created node.
-    Node oldLast = last;
+    Node<Item> oldLast = last;
     
     // Create a new node to hold the new item. This overwrites the class member
     // variable.
-    last = new Node();
+    last = new Node<Item>();
     
     // Set the payload of the node with the new item.
     last.item = item;
@@ -47,7 +47,7 @@ public class LinkedQueue {
     }
   }
   
-  public String dequeue() {
+  public Item dequeue() {
     // Make sure the list isn't empty
     if (isEmpty()) {
       throw new NoSuchElementException();
@@ -55,7 +55,7 @@ public class LinkedQueue {
     
     // Save the payload from the first item of the linked list because the node
     // will be destroyed.
-    String item = first.item;
+    Item item = first.item;
     
     // Save the next node in the list as the first node effectively destroying
     // the first node in the list.

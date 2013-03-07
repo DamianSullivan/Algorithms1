@@ -6,8 +6,8 @@ import org.junit.Test;
 
 public class LinkedStackTest {
   @Test
-  public void testArrayStackOfStrings() {
-    ArrayStackOfStrings stack = new ArrayStackOfStrings();
+  public void testLinkedStack() {
+    LinkedStackOfStrings stack = new LinkedStackOfStrings();
     stack.push("item1");
     stack.push("item2");
     stack.push("item3");
@@ -20,11 +20,11 @@ public class LinkedStackTest {
 
   @Test(expected = NullPointerException.class)
   public void testPushNullItem() throws Exception {
-    new ArrayStackOfStrings().push(null);
+    new ArrayStack<String>().push(null);
   }
 
   @Test(expected = NoSuchElementException.class)
   public void testPopEmptyQueue() throws Exception {
-    new ArrayStackOfStrings().pop();
+    new ArrayStack<String>().pop();
   }
 }
