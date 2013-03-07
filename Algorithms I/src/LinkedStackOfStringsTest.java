@@ -6,12 +6,11 @@ import org.junit.Test;
 
 public class LinkedStackOfStringsTest {
   @Test
-  public void testArrayStackOfStrings() {
-    ArrayStackOfStrings stack = new ArrayStackOfStrings();
+  public void testLinkedStackOfStrings() {
+    LinkedStackOfStrings stack = new LinkedStackOfStrings();
     stack.push("item1");
     stack.push("item2");
     stack.push("item3");
-
 
     assertEquals("item3", stack.pop());
     assertEquals("item2", stack.pop());
@@ -20,11 +19,11 @@ public class LinkedStackOfStringsTest {
 
   @Test(expected = NullPointerException.class)
   public void testPushNullItem() throws Exception {
-    new ArrayStackOfStrings().push(null);
+    new LinkedStackOfStrings().push(null);
   }
 
   @Test(expected = NoSuchElementException.class)
   public void testPopEmptyQueue() throws Exception {
-    new ArrayStackOfStrings().pop();
+    new LinkedStackOfStrings().pop();
   }
 }

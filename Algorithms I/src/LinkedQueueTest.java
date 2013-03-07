@@ -6,8 +6,8 @@ import org.junit.Test;
 
 public class LinkedQueueTest {
   @Test
-  public void testLinkedQueueOfStrings() {
-    LinkedQueueOfStrings queue = new LinkedQueueOfStrings();
+  public void testLinkedQueue() {
+    LinkedQueue<String> queue = new LinkedQueue<String>();
     queue.enqueue("one");
     queue.enqueue("two");
     queue.enqueue("three");
@@ -19,11 +19,11 @@ public class LinkedQueueTest {
 
   @Test(expected = NullPointerException.class)
   public void testNullItem() throws Exception {
-    new LinkedQueueOfStrings().enqueue(null);
+    new LinkedQueue<String>().enqueue(null);
   }
   
   @Test(expected = NoSuchElementException.class)
   public void testDequeueEmptyQueue() throws Exception {
-    new LinkedQueueOfStrings().dequeue();
+    new LinkedQueue<String>().dequeue();
   }
 }
