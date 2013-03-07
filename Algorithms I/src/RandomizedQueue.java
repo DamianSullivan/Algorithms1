@@ -1,3 +1,6 @@
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 /*
  * Randomized queue. A randomized queue is similar to a stack or queue, except
  * that the item removed is chosen uniformly at random from items in the data
@@ -33,31 +36,108 @@
  */
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
+
+  Item[] q;
+  int N = 0;
+
+  @SuppressWarnings("unchecked")
   public RandomizedQueue() {
-    // construct an empty randomized queue
+    q = (Item[]) new Object[1];
   }
 
   public boolean isEmpty() {
-    // is the queue empty?
+    return N == 0;
   }
 
   public int size() {
-    // return the number of items on the queue
+    return N;
   }
 
   public void enqueue(Item item) {
-    // add the item
+    // Check if the item is null.
+    if (item == null) {
+      throw new NullPointerException();
+    }
+
+    // Check to make sure the item will fit in the array, if not then resize.
+    // Return the item that was save from the now-destroyed node.
+    if (N == q.length) {
+      resize(2 * q.length);
+    }
+
+    // Place the new item in the array using the tail variable as a cursor to
+    // keep track of the current point in the array we are appending to.
+    // tail++ means to use the value, then increment.
+    q[N++] = item;
   }
 
   public Item dequeue() {
-    // delete and return a random item
+    // Make sure the list isn't empty
+    if (isEmpty()) {
+      throw new NoSuchElementException();
+    }
+
+    // Save a random item in the array and swap it for the head item.
+    int randomIndex = StdRandom.uniform(N);
+    Item randomItem = q[randomIndex];
+    q[randomIndex] = q[N-1];
+
+    // Destroy the last item to prevent loitering and decrement the size too.
+    q[N--] = null;
+
+    // Resize the array if it has become too small.
+    if (N > 0 && N == q.length / 4) {
+      StdOut.printf("Array stack too big at %s, resizing to %s%n",
+          q.length, q.length / 2);
+      resize(q.length / 2);
+    }
+
+    return randomItem;
   }
 
-  public Item sample() {
-    // return (but do not delete) a random item
+  private void resize(int capacity) {
+    @SuppressWarnings("unchecked")
+    Item[] copy = (Item[]) new Object[capacity];
+    for (int i = 0; i < N; i++) {
+      copy[i] = q[i];
+    }
+    q = copy;
   }
 
   public Iterator<Item> iterator() {
-    // return an independent iterator over items in random order
+    return new RandomizedQueueIterator();
+  }
+
+  private class RandomizedQueueIterator implements Iterator<Item> {
+    private int itemsToRead;
+    private int[] randomIndex;
+
+    public RandomizedQueueIterator() {
+      itemsToRead = N;
+      randomIndex = new int[itemsToRead];
+      for (int i = 0; i < itemsToRead; i++) {
+        randomIndex[i] = i;
+      }
+      StdRandom.shuffle(randomIndex);
+    }
+
+    @Override
+    public boolean hasNext() {
+      return itemsToRead > 0;
+    }
+
+    @Override
+    public Item next() {
+      if (!hasNext()) {
+        throw new NoSuchElementException();
+      }
+      Item item = q[randomIndex[itemsToRead--]];
+      return item;
+    }
+
+    @Override
+    public void remove() {
+      throw new UnsupportedOperationException();
+    }
   }
 }
