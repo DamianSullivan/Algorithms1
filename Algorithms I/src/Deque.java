@@ -184,6 +184,5 @@ public class Deque<Item> implements Iterable<Item> {
     public void remove() {
       throw new UnsupportedOperationException();
     }
-
   }
 }
