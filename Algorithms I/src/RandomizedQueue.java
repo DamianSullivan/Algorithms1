@@ -87,8 +87,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     // Resize the array if it has become too small.
     if (N > 0 && N == q.length / 4) {
-      StdOut.printf("Array stack too big at %s, resizing to %s%n",
-          q.length, q.length / 2);
       resize(q.length / 2);
     }
 
