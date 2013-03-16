@@ -37,10 +37,9 @@ import java.util.NoSuchElementException;
 
 public class RandomizedQueue<Item> implements Iterable<Item> {
 
-  Item[] q;
-  int N = 0;
+  private Item[] q;
+  private int N = 0;
 
-  @SuppressWarnings("unchecked")
   public RandomizedQueue() {
     q = (Item[]) new Object[1];
   }
@@ -83,7 +82,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     q[randomIndex] = q[N-1];
 
     // Destroy the last item to prevent loitering and decrement the size too.
-    q[N--] = null;
+    q[--N] = null;
 
     // Resize the array if it has become too small.
     if (N > 0 && N == q.length / 4) {
@@ -94,12 +93,18 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
   }
 
   private void resize(int capacity) {
-    @SuppressWarnings("unchecked")
     Item[] copy = (Item[]) new Object[capacity];
     for (int i = 0; i < N; i++) {
       copy[i] = q[i];
     }
     q = copy;
+  }
+
+  public Item sample() {
+    if (isEmpty()) {
+      throw new java.util.NoSuchElementException();
+    }
+    return q[StdRandom.uniform(N)];
   }
 
   public Iterator<Item> iterator() {
@@ -129,7 +134,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
       if (!hasNext()) {
         throw new NoSuchElementException();
       }
-      Item item = q[randomIndex[itemsToRead--]];
+      Item item = q[randomIndex[--itemsToRead]];
       return item;
     }
 
