@@ -31,14 +31,14 @@ import java.util.NoSuchElementException;
  */
 public class Deque<Item> implements Iterable<Item> {
 
-  private Node<Item> head;
-  private Node<Item> tail;
+  private Node first;
+  private Node last;
   private int size = 0;
 
-  private class Node<I> {
-    I item;
-    Node<I> next;
-    Node<I> prev;
+  private class Node {
+    private Item item;
+    private Node next;
+    private Node prev;
   }
 
   public Deque() {
@@ -46,7 +46,7 @@ public class Deque<Item> implements Iterable<Item> {
   }
 
   public boolean isEmpty() {
-    return head == null;
+    return size == 0;
   }
 
   public int size() {
@@ -62,11 +62,17 @@ public class Deque<Item> implements Iterable<Item> {
       throw new NullPointerException();
     }
 
-    Node<Item> oldHead = head;
+    Node oldFirst = first;
 
-    head = new Node<Item>();
-    head.item = item;
-    head.next = oldHead;
+    first = new Node();
+    first.item = item;
+    if (isEmpty()) {
+      first.next = null;
+      last = first;
+    } else {
+      first.next = oldFirst;
+      oldFirst.prev = first;
+    }
     size++;
   }
 
@@ -80,25 +86,27 @@ public class Deque<Item> implements Iterable<Item> {
 
     // Save the old last because a new link will be added to the end of it which
     // just means we will be setting the next item to the newly created node.
-    Node<Item> oldTail = tail;
+    Node oldLast = last;
 
     // Create a new node to hold the new item. This overwrites the class member
     // variable.
-    tail = new Node<Item>();
+    last = new Node();
 
     // Set the payload of the node with the new item.
-    tail.item = item;
+    last.item = item;
 
     // Set the next item to null because it is now the new end of the list.
-    tail.next = null;
+    last.next = null;
 
     // Attach the new node to the end of the list by setting the old last's
     // next item to point to the newly created node. Unless this is the queue
     // is empty.
     if (isEmpty()) {
-      head = tail;
+      last.prev = null;
+      first = last;
     } else {
-      oldTail.next = tail;
+      last.prev = oldLast;
+      oldLast.next = last;
     }
     size++;
   }
@@ -112,17 +120,17 @@ public class Deque<Item> implements Iterable<Item> {
 
     // Save the payload from the first item of the linked list because the node
     // will be destroyed.
-    Item item = head.item;
+    Item item = first.item;
 
     // Save the next node in the list as the first node effectively destroying
     // the first node in the list.
-    head = head.next;
+    first = first.next;
     size--;
 
     // If this dequeue call emptied the list we need to set the last item to be
     // null.
     if (isEmpty()) {
-      tail = null;
+      last = null;
     }
 
     // Return the item that was saved from the now-destroyed node.
@@ -136,19 +144,19 @@ public class Deque<Item> implements Iterable<Item> {
       throw new NoSuchElementException();
     }
 
-    // Save the payload from the first item of the linked list because the node
+    // Save the payload from the last item of the linked list because the node
     // will be destroyed.
-    Item item = tail.item;
+    Item item = last.item;
 
     // Set the tail to the previous last node effectively destroying
     // the last node in the list.
-    tail = tail.prev;
+    last = last.prev;
     size--;
 
     // If this removeLast call emptied the list we need to set the last item to be
     // null.
     if (isEmpty()) {
-      head = null;
+      first = null;
     }
 
     // Return the item that was saved from the now-destroyed node.
@@ -157,13 +165,11 @@ public class Deque<Item> implements Iterable<Item> {
 
   public Iterator<Item> iterator() {
     // return an iterator over items in order from front to end
-    return new DequeueIterator<Item>();
+    return new DequeueIterator();
   }
 
-  @SuppressWarnings("hiding")
-  private class DequeueIterator<Item> implements Iterator<Item> {
-
-    private Node<Item> current;
+  private class DequeueIterator implements Iterator<Item> {
+    private Node current = first;
 
     @Override
     public boolean hasNext() {
