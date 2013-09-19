@@ -13,7 +13,7 @@ public class PercolationRuntimeChart {
   private static XYSeries runningTimeSeries =
       new XYSeries("Running Time Series");
 
-  public static void main(String[] args) throws InterruptedException {
+  public static void main(String[] args) {
     RunPercolation runPercolation = new RunPercolation();
     new Thread(runPercolation).start();
 
@@ -39,6 +39,7 @@ public class PercolationRuntimeChart {
   }
 
   static class RunPercolation implements Runnable {
+    @Override
     public void run() {
       for (int N = 1; N <= MAX_SIZE_N; N++) {
         Percolation percolation = new Percolation(N);
