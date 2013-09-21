@@ -1,3 +1,4 @@
+package edu.coursera.algorithms1.assignments.percolation;
 
 import javax.swing.JFrame;
 
@@ -7,6 +8,9 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+
+import edu.princeton.cs.introcs.StdRandom;
+import edu.princeton.cs.introcs.Stopwatch;
 
 public class PercolationRuntimeChart {
   private static final int MAX_SIZE_N = 1;

@@ -1,3 +1,5 @@
+package edu.coursera.algorithms1.assignments.percolation;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 

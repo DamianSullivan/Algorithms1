@@ -1,3 +1,7 @@
+package edu.coursera.algorithms1.assignments.percolation;
+
+import edu.princeton.cs.algs4.WeightedQuickUnionUF;
+
 public class PercolationNoVirtualSites {
   private WeightedQuickUnionUF uf;
   private boolean[][] grid;

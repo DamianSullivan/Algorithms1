@@ -1,3 +1,4 @@
+package edu.coursera.algorithms1.queues;
 import java.util.NoSuchElementException;
 
 /*
