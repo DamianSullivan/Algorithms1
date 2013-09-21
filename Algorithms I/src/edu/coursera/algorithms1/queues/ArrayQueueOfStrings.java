@@ -1,26 +1,28 @@
-import java.util.Iterator;
+package edu.coursera.algorithms1.queues;
+
+import edu.princeton.cs.introcs.StdOut;
+
 import java.util.NoSuchElementException;
 
 /*
  * An array implementation of a queue. Queues are First In First Out (FIFO).
  */
-public class ArrayQueue<Item> {
+public class ArrayQueueOfStrings {
 
-  Item[] q;
+  String[] q;
   int N = 0;
   int head = 0;
   int tail = 0;
 
-  @SuppressWarnings("unchecked")
-  public ArrayQueue() {
-    q = (Item[]) new Object[1];
+  public ArrayQueueOfStrings() {
+    q = new String[1];
   }
 
   public boolean isEmpty() {
     return N == 0;
   }
 
-  public void enqueue(Item item) {
+  public void enqueue(String item) {
     // Check if the item is null.
     if (item == null) {
       throw new NullPointerException();
@@ -48,14 +50,14 @@ public class ArrayQueue<Item> {
     N++;
   }
 
-  public Item dequeue() {
+  public String dequeue() {
     // Make sure the list isn't empty
     if (isEmpty()) {
       throw new NoSuchElementException();
     }
 
     // Save the current item at the head of the array so we can destroy it.
-    Item item = q[head];
+    String item = q[head];
 
     // Destroy the head item to prevent loitering.
     q[head] = null;
@@ -86,8 +88,7 @@ public class ArrayQueue<Item> {
 
   private void resize(int capacity) {
     // Create a new bigger array to copy the smaller array to.
-    @SuppressWarnings("unchecked")
-    Item[] copy = (Item[]) new Object[capacity];
+    String[] copy = new String[capacity];
 
     // Copy the elements from the existing full array to the larger one just
     // created. Start copying from the old array at head and iterate until
@@ -103,35 +104,5 @@ public class ArrayQueue<Item> {
     // Rest the head and tail cursors to match the resized array.
     head = 0;
     tail = N;
-  }
-
-  public Iterator<Item> iterator() {
-    return new ArrayQueueIterator();
-  }
-
-  private class ArrayQueueIterator implements Iterator<Item> {
-    private int i = 0;
-
-    @Override
-    public boolean hasNext() {
-      // Has this iterator reached the end of the number of items currently in
-      // the queue?
-      return i < N;
-    }
-
-    @Override
-    public Item next() {
-      if (!hasNext()) {
-        throw new NoSuchElementException();
-      }
-      Item item = q[(i + head) % q.length];
-      i++;
-      return item;
-    }
-
-    @Override
-    public void remove() {
-      throw new UnsupportedOperationException();
-    }
   }
 }

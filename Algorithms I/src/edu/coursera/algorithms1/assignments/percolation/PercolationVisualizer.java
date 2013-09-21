@@ -1,3 +1,4 @@
+package edu.coursera.algorithms1.assignments.percolation;
   /****************************************************************************
  *  Compilation:  javac PercolationVisualizer.java
  *  Execution:    java PercolationVisualizer input.txt
@@ -15,6 +16,9 @@
  *  with with site (1, 1) in the upper left-hand corner.
  *
  ****************************************************************************/
+
+import edu.princeton.cs.introcs.StdDraw;
+import edu.princeton.cs.introcs.StdRandom;
 
 import java.awt.Font;
 

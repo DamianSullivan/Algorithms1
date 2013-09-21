@@ -1,8 +1,10 @@
+package edu.coursera.algorithms1.stacks;
 import static org.junit.Assert.assertEquals;
 
 import java.util.NoSuchElementException;
 
 import org.junit.Test;
+
 
 public class LinkedStackTest {
   @Test

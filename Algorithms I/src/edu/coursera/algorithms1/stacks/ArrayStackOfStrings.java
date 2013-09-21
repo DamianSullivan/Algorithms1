@@ -1,23 +1,26 @@
+package edu.coursera.algorithms1.stacks;
+
+import edu.princeton.cs.introcs.StdOut;
+
 import java.util.NoSuchElementException;
 
 /*
  * An array implementation of a stack. Stacks are Last In First Out (LIFO).
  */
-public class ArrayStack<Item> {
+public class ArrayStackOfStrings {
 
-  Item[] q;
+  String[] q;
   int N = 0;
 
-  @SuppressWarnings("unchecked")
-  public ArrayStack() {
-    q = (Item[]) new Object[1];
+  public ArrayStackOfStrings() {
+    q = new String[1];
   }
 
   public boolean isEmpty() {
     return N == 0;
   }
 
-  public void push(Item item) {
+  public void push(String item) {
     // Check if the item is null.
     if (item == null) {
       throw new NullPointerException();
@@ -39,7 +42,7 @@ public class ArrayStack<Item> {
     q[N++] = item;
   }
 
-  public Item pop() {
+  public String pop() {
     // Make sure the list isn't empty
     if (isEmpty()) {
       throw new NoSuchElementException();
@@ -58,7 +61,7 @@ public class ArrayStack<Item> {
 
 
     // Save the item for returning and decrement the cursor
-    Item item = q[--N];
+    String item = q[--N];
 
     // To prevent loitering we must save the item and clear the object from the
     // array. This also is used in resizing to not copy items that are null.
@@ -69,8 +72,7 @@ public class ArrayStack<Item> {
 
   public void resize(int capacity) {
     // Create a new bigger array to copy the smaller array to.
-    @SuppressWarnings("unchecked")
-    Item[] copy = (Item[]) new Object[capacity];
+    String[] copy = new String[capacity];
 
     // Copy the elements from the existing full array to the larger one just
     // created.

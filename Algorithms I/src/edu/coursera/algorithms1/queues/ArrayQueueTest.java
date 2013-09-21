@@ -1,3 +1,4 @@
+package edu.coursera.algorithms1.queues;
 import static org.junit.Assert.assertEquals;
 
 import java.util.NoSuchElementException;

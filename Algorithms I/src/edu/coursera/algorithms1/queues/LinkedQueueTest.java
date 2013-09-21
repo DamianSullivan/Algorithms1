@@ -1,13 +1,14 @@
+package edu.coursera.algorithms1.queues;
 import static org.junit.Assert.assertEquals;
 
 import java.util.NoSuchElementException;
 
 import org.junit.Test;
-//
-public class ArrayQueueOfStringsTest {
+
+public class LinkedQueueTest {
   @Test
-  public void testArrayQueueOfStrings() {
-    ArrayQueueOfStrings queue = new ArrayQueueOfStrings();
+  public void testLinkedQueue() {
+    LinkedQueue<String> queue = new LinkedQueue<String>();
     queue.enqueue("one");
     queue.enqueue("two");
     queue.enqueue("three");
@@ -19,11 +20,11 @@ public class ArrayQueueOfStringsTest {
 
   @Test(expected = NullPointerException.class)
   public void testNullItem() throws Exception {
-    new ArrayQueueOfStrings().enqueue(null);
+    new LinkedQueue<String>().enqueue(null);
   }
-
+  
   @Test(expected = NoSuchElementException.class)
   public void testDequeueEmptyQueue() throws Exception {
-    new ArrayQueueOfStrings().dequeue();
+    new LinkedQueue<String>().dequeue();
   }
 }

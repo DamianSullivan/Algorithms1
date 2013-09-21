@@ -1,3 +1,7 @@
+package edu.coursera.algorithms1.queues;
+
+import edu.princeton.cs.introcs.StdRandom;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 

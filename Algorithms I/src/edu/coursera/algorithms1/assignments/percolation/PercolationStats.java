@@ -1,3 +1,8 @@
+package edu.coursera.algorithms1.assignments.percolation;
+import edu.princeton.cs.introcs.StdOut;
+import edu.princeton.cs.introcs.StdRandom;
+import edu.princeton.cs.introcs.StdStats;
+
 public class PercolationStats {
   private int T;
   private double mean = 0.0;

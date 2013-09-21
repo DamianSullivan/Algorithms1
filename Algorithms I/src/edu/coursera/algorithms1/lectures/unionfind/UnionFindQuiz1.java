@@ -1,3 +1,7 @@
+package edu.coursera.algorithms1.lectures.unionfind;
+
+import edu.princeton.cs.introcs.StdOut;
+
 public class UnionFindQuiz1 {
 
   static class LocalQuickFindUF {

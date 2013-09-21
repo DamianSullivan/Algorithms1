@@ -1,24 +1,30 @@
+package edu.coursera.algorithms1.queues;
+
+import edu.princeton.cs.introcs.StdOut;
+
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /*
  * An array implementation of a queue. Queues are First In First Out (FIFO).
  */
-public class ArrayQueueOfStrings {
- 
-  String[] q;
+public class ArrayQueue<Item> {
+
+  Item[] q;
   int N = 0;
   int head = 0;
   int tail = 0;
 
-  public ArrayQueueOfStrings() {
-    q = new String[1];
+  @SuppressWarnings("unchecked")
+  public ArrayQueue() {
+    q = (Item[]) new Object[1];
   }
 
   public boolean isEmpty() {
     return N == 0;
   }
 
-  public void enqueue(String item) {
+  public void enqueue(Item item) {
     // Check if the item is null.
     if (item == null) {
       throw new NullPointerException();
@@ -46,14 +52,14 @@ public class ArrayQueueOfStrings {
     N++;
   }
 
-  public String dequeue() {
+  public Item dequeue() {
     // Make sure the list isn't empty
     if (isEmpty()) {
       throw new NoSuchElementException();
     }
 
     // Save the current item at the head of the array so we can destroy it.
-    String item = q[head];
+    Item item = q[head];
 
     // Destroy the head item to prevent loitering.
     q[head] = null;
@@ -84,7 +90,8 @@ public class ArrayQueueOfStrings {
 
   private void resize(int capacity) {
     // Create a new bigger array to copy the smaller array to.
-    String[] copy = new String[capacity];
+    @SuppressWarnings("unchecked")
+    Item[] copy = (Item[]) new Object[capacity];
 
     // Copy the elements from the existing full array to the larger one just
     // created. Start copying from the old array at head and iterate until
@@ -96,9 +103,39 @@ public class ArrayQueueOfStrings {
 
     // Overwrite the array that was too small with the new larger array.
     q = copy;
-    
+
     // Rest the head and tail cursors to match the resized array.
     head = 0;
     tail = N;
+  }
+
+  public Iterator<Item> iterator() {
+    return new ArrayQueueIterator();
+  }
+
+  private class ArrayQueueIterator implements Iterator<Item> {
+    private int i = 0;
+
+    @Override
+    public boolean hasNext() {
+      // Has this iterator reached the end of the number of items currently in
+      // the queue?
+      return i < N;
+    }
+
+    @Override
+    public Item next() {
+      if (!hasNext()) {
+        throw new NoSuchElementException();
+      }
+      Item item = q[(i + head) % q.length];
+      i++;
+      return item;
+    }
+
+    @Override
+    public void remove() {
+      throw new UnsupportedOperationException();
+    }
   }
 }
