@@ -1,4 +1,4 @@
-package edu.coursera.algorithms1.queues;
+package edu.coursera.algorithms1.assignments.queues;
 
 import edu.princeton.cs.introcs.StdRandom;
 

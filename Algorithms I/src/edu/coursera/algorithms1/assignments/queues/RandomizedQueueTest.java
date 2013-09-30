@@ -1,4 +1,4 @@
-package edu.coursera.algorithms1.queues;
+package edu.coursera.algorithms1.assignments.queues;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

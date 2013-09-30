@@ -1,4 +1,4 @@
-import edu.coursera.algorithms1.queues.RandomizedQueue;
+import edu.coursera.algorithms1.assignments.queues.RandomizedQueue;
 
 
 public class Subset {
