@@ -1,5 +1,6 @@
-import edu.coursera.algorithms1.assignments.queues.RandomizedQueue;
-
+package edu.coursera.algorithms1.assignments.queues;
+import edu.princeton.cs.introcs.StdIn;
+import edu.princeton.cs.introcs.StdOut;
 
 public class Subset {
   /**
