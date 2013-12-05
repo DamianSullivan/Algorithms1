@@ -1,6 +1,6 @@
 package edu.coursera.algorithms1.searchtables;
 
-interface ST<Key, Value> {
+interface SearchTable<Key, Value> {
   void put(Key key, Value value);
 
   Value get(Key key);

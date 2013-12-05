@@ -4,7 +4,7 @@ import edu.princeton.cs.introcs.In;
 import edu.princeton.cs.introcs.StdOut;
 
 public class SearchTableVisualizer {
-  public static void load(ST<String, Integer>  searchTable, int minimumLength, String filename) {
+  public static void load(SearchTable<String, Integer>  searchTable, int minimumLength, String filename) {
     In in = new In(filename);
     while (!in.isEmpty()) {
       String word = in.readString();
@@ -25,7 +25,7 @@ public class SearchTableVisualizer {
     }
   }
   
-  public static void highestFrequency(ST<String, Integer> searchTable) {
+  public static void highestFrequency(SearchTable<String, Integer> searchTable) {
     // Find the key with the highest frequency count.
     String max = "";
     searchTable.put(max, 0);
@@ -55,7 +55,7 @@ public class SearchTableVisualizer {
     //StdOut.println(String.format("Filename is: %s", filename));
     
     //StdOut.println("Setting up new search table.");
-    ST<String, Integer> searchTable = new SequentialSearchST<String, Integer>();
+    SearchTable<String, Integer> searchTable = new SequentialSearchTable<String, Integer>();
 
     //StdOut.println("Loading...");
     SearchTableVisualizer.load(searchTable, minimumLength, filename);

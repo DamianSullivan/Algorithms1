@@ -3,7 +3,7 @@ package edu.coursera.algorithms1.searchtables;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class SequentialSearchST<Key, Value> implements ST<Key, Value> {
+public class SequentialSearchTable<Key, Value> implements SearchTable<Key, Value> {
   private Node first;
   private int size;
 

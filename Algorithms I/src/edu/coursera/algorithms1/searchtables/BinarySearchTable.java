@@ -1,13 +1,13 @@
 package edu.coursera.algorithms1.searchtables;
 
-public class BinarySearchST<Key extends Comparable<Key>, Value> implements ST<Key, Value> {
+public class BinarySearchTable<Key extends Comparable<Key>, Value> implements SearchTable<Key, Value> {
   private Key[] keys;
   private Value[] vals;
   private int N;
 
   // See Algorithm 1.1 for standard array-resizing code.
   @SuppressWarnings("unchecked")
-  public BinarySearchST(int capacity) {
+  public BinarySearchTable(int capacity) {
     keys = (Key[]) new Comparable[capacity];
     vals = (Value[]) new Object[capacity];
   }
