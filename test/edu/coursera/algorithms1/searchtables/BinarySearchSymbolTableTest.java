@@ -5,60 +5,52 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
  * Tests the Binary Search implementation of Search Table.
  */
 public class BinarySearchSymbolTableTest {
+  private BinarySearchSymbolTable<Integer, String> binarySearchTable;
+  
+  @Before
+  public void setup() {
+    binarySearchTable = new BinarySearchSymbolTable<Integer, String>(4);
+  }
 
   @Test
-  public void testPut() {
-    Integer[] keys = new Integer[3];
-    String[] vals = new String[3];
-    BinarySearchSymbolTable<Integer, String> binarySearchTable =
-        new BinarySearchSymbolTable<Integer, String>(keys, vals);
-    
+  public void testPutAndGet() {
     binarySearchTable.put(1, "one");
     binarySearchTable.put(2, "two");
     binarySearchTable.put(3, "three");
-    
-    Integer[] expectedKeys = {1, 2, 3};
-    String[] expectedVals = {"one", "two", "three"};
-    assertArrayEquals(expectedKeys, keys);
-    assertArrayEquals(expectedVals, vals);
-  }
-  
-  @Test
-  public void testGet() {
-    Integer[] keys = {1, 2, 3};
-    String[] vals = {"one", "two", "three"};
-    BinarySearchSymbolTable<Integer, String> binarySearchTable =
-        new BinarySearchSymbolTable<Integer, String>(keys, vals);
     assertEquals("one", binarySearchTable.get(1));
     assertEquals("two", binarySearchTable.get(2));
     assertEquals("three", binarySearchTable.get(3));
   }
-  
+    
   @Test
-  public void testDeleteResizesKeyArray() {
-    Integer[] keys = {1, 2, 3, 4};
-    String[] vals = {"one", "two", "three", "four"};
-    BinarySearchSymbolTable<Integer, String> binarySearchTable =
-        new BinarySearchSymbolTable<Integer, String>(keys, vals);
+  public void testDelete() {
+    binarySearchTable.put(1, "one");
+    binarySearchTable.put(2, "two");
+    binarySearchTable.put(3, "three");
+    binarySearchTable.put(4, "four");
     
     binarySearchTable.delete(2);
-    //binarySearchTable.delete(3);
-    //binarySearchTable.delete(4);
+    binarySearchTable.delete(3);
+    binarySearchTable.delete(4);
 
-    //assertEquals("one", binarySearchTable.get(1));
+    assertEquals("one", binarySearchTable.get(1));
     assertNull(binarySearchTable.get(2));
-    //assertNull(binarySearchTable.get(3));
-    //assertNull(binarySearchTable.get(4));
-    //assertEquals(1, keys.length);
-    //assertEquals(1, vals.length);
+    assertNull(binarySearchTable.get(3));
+    assertNull(binarySearchTable.get(4));
+    
+    //System.out.printf("KEYS: %s", binarySearchTable.getKeys().length);
+    Comparable<Integer>[] keys = binarySearchTable.getKeys();
+    assertEquals(2, keys.length);
   }
   
+  /*
   @Test
   public void testContains() {
     fail("Not yet implemented");
@@ -128,5 +120,5 @@ public class BinarySearchSymbolTableTest {
   public void testKeysRange() {
     fail("Not yet implemented");
   }
-
+  */
 }

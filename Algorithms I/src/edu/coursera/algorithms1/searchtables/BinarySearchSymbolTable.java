@@ -1,6 +1,7 @@
 package edu.coursera.algorithms1.searchtables;
 
-public class BinarySearchSymbolTable<Key extends Comparable<Key>, Value> implements SymbolTable<Key, Value> {
+public class BinarySearchSymbolTable<Key extends Comparable<Key>, Value>
+    implements SymbolTable<Key, Value> {
   private Key[] keys;
   private Value[] vals;
   private int N;
@@ -10,13 +11,6 @@ public class BinarySearchSymbolTable<Key extends Comparable<Key>, Value> impleme
   public BinarySearchSymbolTable(int capacity) {
     keys = (Key[]) new Comparable[capacity];
     vals = (Value[]) new Object[capacity];
-  }
-
-  // For testing.
-  protected BinarySearchSymbolTable(Key[] keys, Value[] vals) {
-    this.keys = keys;
-    this.vals = vals;
-    N = keys.length + 1;
   }
   
   // Search for key. Update value if found; grow table if new.
@@ -79,15 +73,14 @@ public class BinarySearchSymbolTable<Key extends Comparable<Key>, Value> impleme
       keys[j] = keys[j+1];
       vals[j] = vals[j+1];
     }
+
+    // Update N to reflect the new size of the table.
+    N--;
     
     // Erase the last element since we collapsed the table by one.
     keys[N] = null;
     vals[N] = null;
-    
-    // Update N to reflect the new size of the table.
-    N--;
-    
-    
+
     // Resize the table if only 1/4 full.
     if (N > 0 && N == keys.length/4) {
       resize(keys.length/2);
@@ -154,12 +147,12 @@ public class BinarySearchSymbolTable<Key extends Comparable<Key>, Value> impleme
    */
   public int rank(Key key) {
     int lo = 0; 
-    int hi = N - 1;
+    int hi = N-1;
 
     while (lo <= hi) {
       // Find the middle of the array within the current interval.
       int mid = lo + (hi - lo) / 2;
-      
+
       // Is the key >, <, or = to the middle key?
       // compareTo returns:
       //     * -1 for less than
@@ -219,5 +212,14 @@ public class BinarySearchSymbolTable<Key extends Comparable<Key>, Value> impleme
   public Iterable<Key> keys() {
     // TODO Auto-generated method stub
     return null;
+  }
+  
+  // For testing.
+  protected Key[] getKeys() {
+    return keys;
+  }
+  
+  protected Value[] getValues() {
+    return vals;
   }
 }
