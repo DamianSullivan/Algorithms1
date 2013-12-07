@@ -24,7 +24,7 @@ public class FrequencyCounter {
       }
     }
   }
-  
+
   public static void highestFrequency(SearchTable<String, Integer> searchTable) {
     // Find the key with the highest frequency count.
     String max = "";
@@ -40,27 +40,27 @@ public class FrequencyCounter {
         max = word;
       }
     }
-    StdOut.println(max + " " + searchTable.get(max));    
+    StdOut.println(max + " " + searchTable.get(max));
   }
-  
+
   public static void main(String[] args) {
     if (args.length == 0) {
       throw new IllegalArgumentException("Need minimum length of keys to consider.");
     }
-    
+
     int minimumLength = Integer.parseInt(args[0]);
     //StdOut.println(String.format("Minimum length: %s", minimumLength));
-    
+
     String filename = args[1];
     //StdOut.println(String.format("Filename is: %s", filename));
-    
+
     //StdOut.println("Setting up new search table.");
     SearchTable<String, Integer> searchTable = new SequentialSearchTable<String, Integer>();
 
     //StdOut.println("Loading...");
-    SequentialSearchTableTest.load(searchTable, minimumLength, filename);
-    
+    FrequencyCounter.load(searchTable, minimumLength, filename);
+
     //StdOut.println("Looking for highest frequency word...");
-    SequentialSearchTableTest.highestFrequency(searchTable);
+    FrequencyCounter.highestFrequency(searchTable);
   }
 }
