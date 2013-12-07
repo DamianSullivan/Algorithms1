@@ -3,7 +3,7 @@ package edu.coursera.algorithms1.searchtables;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class SequentialSearchTable<Key, Value> implements SearchTable<Key, Value> {
+public class SequentialSearchSymbolTable<Key, Value> implements SymbolTable<Key, Value> {
   private Node first;
   private int size;
 

@@ -1,10 +1,12 @@
-package edu.coursera.algorithms1.searchtables;
+package edu.coursera.algorithms1.searchtables.testing;
 
+import edu.coursera.algorithms1.searchtables.SequentialSearchSymbolTable;
+import edu.coursera.algorithms1.searchtables.SymbolTable;
 import edu.princeton.cs.introcs.In;
 import edu.princeton.cs.introcs.StdOut;
 
-public class FrequencyCounter {
-  public static void load(SearchTable<String, Integer>  searchTable, int minimumLength, String filename) {
+public class SymbolTableVisualizer {
+  public static void load(SymbolTable<String, Integer>  searchTable, int minimumLength, String filename) {
     In in = new In(filename);
     while (!in.isEmpty()) {
       String word = in.readString();
@@ -24,8 +26,8 @@ public class FrequencyCounter {
       }
     }
   }
-
-  public static void highestFrequency(SearchTable<String, Integer> searchTable) {
+  
+  public static void highestFrequency(SymbolTable<String, Integer> searchTable) {
     // Find the key with the highest frequency count.
     String max = "";
     searchTable.put(max, 0);
@@ -40,27 +42,27 @@ public class FrequencyCounter {
         max = word;
       }
     }
-    StdOut.println(max + " " + searchTable.get(max));
+    StdOut.println(max + " " + searchTable.get(max));    
   }
-
+  
   public static void main(String[] args) {
     if (args.length == 0) {
       throw new IllegalArgumentException("Need minimum length of keys to consider.");
     }
-
+    
     int minimumLength = Integer.parseInt(args[0]);
     //StdOut.println(String.format("Minimum length: %s", minimumLength));
-
+    
     String filename = args[1];
     //StdOut.println(String.format("Filename is: %s", filename));
-
+    
     //StdOut.println("Setting up new search table.");
-    SearchTable<String, Integer> searchTable = new SequentialSearchTable<String, Integer>();
+    SymbolTable<String, Integer> searchTable = new SequentialSearchSymbolTable<String, Integer>();
 
     //StdOut.println("Loading...");
-    FrequencyCounter.load(searchTable, minimumLength, filename);
-
+    SymbolTableVisualizer.load(searchTable, minimumLength, filename);
+    
     //StdOut.println("Looking for highest frequency word...");
-    FrequencyCounter.highestFrequency(searchTable);
+    SymbolTableVisualizer.highestFrequency(searchTable);
   }
 }

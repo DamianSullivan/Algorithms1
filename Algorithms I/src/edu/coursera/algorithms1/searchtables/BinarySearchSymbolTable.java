@@ -1,19 +1,19 @@
 package edu.coursera.algorithms1.searchtables;
 
-public class BinarySearchTable<Key extends Comparable<Key>, Value> implements SearchTable<Key, Value> {
+public class BinarySearchSymbolTable<Key extends Comparable<Key>, Value> implements SymbolTable<Key, Value> {
   private Key[] keys;
   private Value[] vals;
   private int N;
 
   // See Algorithm 1.1 for standard array-resizing code.
   @SuppressWarnings("unchecked")
-  public BinarySearchTable(int capacity) {
+  public BinarySearchSymbolTable(int capacity) {
     keys = (Key[]) new Comparable[capacity];
     vals = (Value[]) new Object[capacity];
   }
 
   // For testing.
-  protected BinarySearchTable(Key[] keys, Value[] vals) {
+  protected BinarySearchSymbolTable(Key[] keys, Value[] vals) {
     this.keys = keys;
     this.vals = vals;
     N = keys.length + 1;

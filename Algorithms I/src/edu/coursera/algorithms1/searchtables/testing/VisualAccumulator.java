@@ -1,4 +1,4 @@
-package edu.coursera.algorithms1.searchtables;
+package edu.coursera.algorithms1.searchtables.testing;
 
 import edu.princeton.cs.introcs.StdDraw;
 

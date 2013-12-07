@@ -10,14 +10,14 @@ import org.junit.Test;
 /**
  * Tests the Binary Search implementation of Search Table.
  */
-public class BinarySearchTableTest {
+public class BinarySearchSymbolTableTest {
 
   @Test
   public void testPut() {
     Integer[] keys = new Integer[3];
     String[] vals = new String[3];
-    BinarySearchTable<Integer, String> binarySearchTable =
-        new BinarySearchTable<Integer, String>(keys, vals);
+    BinarySearchSymbolTable<Integer, String> binarySearchTable =
+        new BinarySearchSymbolTable<Integer, String>(keys, vals);
     
     binarySearchTable.put(1, "one");
     binarySearchTable.put(2, "two");
@@ -33,8 +33,8 @@ public class BinarySearchTableTest {
   public void testGet() {
     Integer[] keys = {1, 2, 3};
     String[] vals = {"one", "two", "three"};
-    BinarySearchTable<Integer, String> binarySearchTable =
-        new BinarySearchTable<Integer, String>(keys, vals);
+    BinarySearchSymbolTable<Integer, String> binarySearchTable =
+        new BinarySearchSymbolTable<Integer, String>(keys, vals);
     assertEquals("one", binarySearchTable.get(1));
     assertEquals("two", binarySearchTable.get(2));
     assertEquals("three", binarySearchTable.get(3));
@@ -44,8 +44,8 @@ public class BinarySearchTableTest {
   public void testDeleteResizesKeyArray() {
     Integer[] keys = {1, 2, 3, 4};
     String[] vals = {"one", "two", "three", "four"};
-    BinarySearchTable<Integer, String> binarySearchTable =
-        new BinarySearchTable<Integer, String>(keys, vals);
+    BinarySearchSymbolTable<Integer, String> binarySearchTable =
+        new BinarySearchSymbolTable<Integer, String>(keys, vals);
     
     binarySearchTable.delete(2);
     //binarySearchTable.delete(3);
