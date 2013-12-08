@@ -1,7 +1,7 @@
 package edu.dsullivan.algorithms.searching.testing;
 
 import edu.dsullivan.algorithms.searching.binarysearch.SymbolTable;
-import edu.dsullivan.algorithms.searching.linkedlist.SequentialSearchSymbolTable;
+import edu.dsullivan.algorithms.searching.sequentialsearch.SequentialSearchSymbolTable;
 import edu.princeton.cs.introcs.In;
 import edu.princeton.cs.introcs.StdOut;
 

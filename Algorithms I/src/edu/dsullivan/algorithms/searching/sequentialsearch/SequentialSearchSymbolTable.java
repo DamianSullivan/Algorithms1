@@ -1,4 +1,4 @@
-package edu.dsullivan.algorithms.searching.linkedlist;
+package edu.dsullivan.algorithms.searching.sequentialsearch;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
