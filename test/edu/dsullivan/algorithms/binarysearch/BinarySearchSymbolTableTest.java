@@ -10,7 +10,7 @@ import java.util.Iterator;
 import org.junit.Before;
 import org.junit.Test;
 
-import edu.dsullivan.algorithms.binarysearch.BinarySearchSymbolTable;
+import edu.dsullivan.algorithms.searching.binarysearch.BinarySearchSymbolTable;
 
 /**
  * Tests the Binary Search implementation of Search Table.
@@ -46,8 +46,6 @@ public class BinarySearchSymbolTableTest {
     assertNull(binarySearchTable.get(2));
     assertNull(binarySearchTable.get(3));
     assertNull(binarySearchTable.get(4));
-    Comparable<Integer>[] keys = binarySearchTable.getKeys();
-    assertEquals(2, keys.length);
   }
   
   @Test
