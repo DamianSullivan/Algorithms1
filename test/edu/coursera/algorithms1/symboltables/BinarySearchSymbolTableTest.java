@@ -39,17 +39,13 @@ public class BinarySearchSymbolTableTest {
     binarySearchTable.put(2, "two");
     binarySearchTable.put(3, "three");
     binarySearchTable.put(4, "four");
-    
     binarySearchTable.delete(2);
     binarySearchTable.delete(3);
     binarySearchTable.delete(4);
-
     assertEquals("one", binarySearchTable.get(1));
     assertNull(binarySearchTable.get(2));
     assertNull(binarySearchTable.get(3));
     assertNull(binarySearchTable.get(4));
-    
-    //System.out.printf("KEYS: %s", binarySearchTable.getKeys().length);
     Comparable<Integer>[] keys = binarySearchTable.getKeys();
     assertEquals(2, keys.length);
   }
