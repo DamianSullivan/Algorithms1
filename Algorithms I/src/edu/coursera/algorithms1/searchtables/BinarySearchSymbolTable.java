@@ -1,19 +1,22 @@
 package edu.coursera.algorithms1.searchtables;
 
+import edu.princeton.cs.algs4.Queue;
+
 public class BinarySearchSymbolTable<Key extends Comparable<Key>, Value>
     implements SymbolTable<Key, Value> {
   private Key[] keys;
   private Value[] vals;
   private int N;
 
-  // See Algorithm 1.1 for standard array-resizing code.
   @SuppressWarnings("unchecked")
   public BinarySearchSymbolTable(int capacity) {
     keys = (Key[]) new Comparable[capacity];
     vals = (Value[]) new Object[capacity];
   }
   
-  // Search for key. Update value if found; grow table if new.
+  /**
+   * Search for key. Update value if found; grow table if new.
+   */
   public void put(Key key, Value val) {
     // Where should this key go in the table?
     int rank = rank(key);
@@ -22,6 +25,11 @@ public class BinarySearchSymbolTable<Key extends Comparable<Key>, Value>
     if (rank < N && keys[rank].compareTo(key) == 0) {
       vals[rank] = val;
       return;
+    }
+    
+    // Make sure the table is large enough to fit the new key.
+    if (N == keys.length) {
+      resize(2*keys.length);
     }
     
     // Grow the table by one to fit the new key.
@@ -37,7 +45,10 @@ public class BinarySearchSymbolTable<Key extends Comparable<Key>, Value>
     // Update N to reflect the new size of the table.
     N++;
   }
-  
+
+  /**
+   * Retrieve the value associated with key, return null if not found.
+   */
   public Value get(Key key) {
     // If this table is empty then there is no key.
     if (isEmpty()) {
@@ -55,6 +66,9 @@ public class BinarySearchSymbolTable<Key extends Comparable<Key>, Value>
     }
   }
   
+  /**
+   * Remove key and value from the table.
+   */
   public void delete(Key key) {
     if (isEmpty()) {
       return;
@@ -100,42 +114,89 @@ public class BinarySearchSymbolTable<Key extends Comparable<Key>, Value>
     vals = resizedValues;
   }
 
-  @Override
+  /**
+   * Does this key exist in the table?
+   */
   public boolean contains(Key key) {
-    // TODO Auto-generated method stub
-    return false;
+    // Find the key should be in the table.
+    int rank = rank(key);
+    
+    // Key is not in the table.
+    if (rank < N && keys[rank].compareTo(key) == 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
+  /**
+   * Is this table empty?
+   */
   public boolean isEmpty() {
     return N == 0;
   }
   
+  /**
+   * Number of key value pairs.
+   */
   public int size() {
     return N;
   }
   
-  @Override
   public Key min() {
-    // TODO Auto-generated method stub
-    return null;
+    return keys[0];
   }
 
-  @Override
   public Key max() {
-    // TODO Auto-generated method stub
-    return null;
+    // Since N is the size of the table, N-1 is its largest index.
+    return keys[N-1];
   }
 
-  @Override
+  /**
+   * Largest key less than or equal to key.
+   */
   public Key floor(Key key) {
-    // TODO Auto-generated method stub
-    return null;
+    // Find where this key should be in the table.
+    int rank = rank(key);
+    
+    // Return the key if it has been found.
+    if (rank < N && keys[rank].compareTo(key) == 0) {
+      return keys[rank];
+    }
+    
+    // If the rank is 0, then there is no floor.
+    if (rank == 0) {
+      return null;
+    }
+    
+    // Return the item that would be one less than the rank.
+    else {
+      return keys[rank-1];
+    }
+    
   }
 
-  @Override
+  /**
+   * Find the smallest key greater than or equal to key.
+   */
   public Key ceiling(Key key) {
-    // TODO Auto-generated method stub
-    return null;
+    // Find where this key should be in the table.
+    int rank = rank(key);
+    
+    // Return if the key has been found.
+    if (rank < N && keys[rank].compareTo(key) == 0) {
+      return keys[rank];
+    }
+    
+    // If the rank is Max then there is no ceiling.
+    if (rank > N) {
+      return null;
+    }
+    
+    // Return the key at the location of the rank of this key.
+    else {
+      return keys[rank];
+    }
   }
 
   /**
@@ -178,40 +239,90 @@ public class BinarySearchSymbolTable<Key extends Comparable<Key>, Value>
     return lo;
   }
 
-  @Override
+  /**
+   * Get the key of rank k.
+   */
   public Key select(int k) {
-    // TODO Auto-generated method stub
-    return null;
+    // k is out of bounds.
+    if (k < 0 || k > N) {
+      return null;
+    }
+    return keys[k];
   }
 
-  @Override
+  /**
+   * Delete the smallest key in the table.
+   */
   public void deleteMin() {
-    // TODO Auto-generated method stub
-    
+    delete(min());
   }
 
-  @Override
+  /**
+   * Delete the largest key in the table.
+   */
   public void deleteMax() {
-    // TODO Auto-generated method stub
-    
+    delete(max());    
   }
 
-  @Override
+  /**
+   * Number of keys between the given key interval.
+   */
   public int size(Key lo, Key hi) {
-    // TODO Auto-generated method stub
-    return 0;
+    // If lo is higher than hi then size doesn't make sense.
+    if (lo.compareTo(hi) > 0) {
+      return 0;
+    }
+    
+    // If the key is contained in the table then the size is one more than the difference in rank
+    // because rank starts at index 0.
+    if (contains(hi)) {
+      return rank(hi) - rank(lo) + 1;
+    } else {
+      return rank(hi) - rank(lo);
+    }
   }
 
-  @Override
+  /**
+   * Get keys in the range in sorted order.
+   */
   public Iterable<Key> keys(Key lo, Key hi) {
-    // TODO Auto-generated method stub
-    return null;
+    // Use a queue to iterate through keys.
+    // TODO(dsullivan): See if we can use lazy initialization here.
+    Queue<Key> queue = new Queue<Key>(); 
+    
+    // Input checking.
+    if (lo == null && hi == null) {
+      return queue;
+    }
+    if (lo == null) {
+      throw new NullPointerException("lo is null in keys()");
+    }   
+    if (hi == null) {
+      throw new NullPointerException("hi is null in keys()");
+    }
+    if (lo.compareTo(hi) > 0) {
+      return queue;
+    }
+    
+    // Enqueue all keys in the interval.
+    for (int i = rank(lo); i < rank(hi); i++) { 
+      queue.enqueue(keys[i]);
+    }
+    
+    // Enqueue the hi key if it is actually found in the table. If not found then passed hi value
+    // is outside of the table but the number of elements is lo -> highest rank.
+    if (contains(hi)) {
+      queue.enqueue(keys[rank(hi)]);
+    }
+    
+    return queue; 
   }
-
-  @Override
+ 
+  /**
+   * Get the keys in the whole table in sorted order.
+   */
   public Iterable<Key> keys() {
-    // TODO Auto-generated method stub
-    return null;
+    return keys(min(), max());
   }
   
   // For testing.

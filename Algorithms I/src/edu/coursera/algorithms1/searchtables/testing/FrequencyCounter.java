@@ -1,27 +1,31 @@
 package edu.coursera.algorithms1.searchtables.testing;
 
+import edu.coursera.algorithms1.searchtables.BinarySearchSymbolTable;
 import edu.coursera.algorithms1.searchtables.SequentialSearchSymbolTable;
 import edu.coursera.algorithms1.searchtables.SymbolTable;
 import edu.princeton.cs.introcs.In;
 import edu.princeton.cs.introcs.StdOut;
 
 public class FrequencyCounter {
-  public static void load(SymbolTable<String, Integer>  searchTable, int minimumLength, String filename) {
+  public static void load(SymbolTable<String, Integer> searchTable,
+      int minimumLength, String filename) {
     In in = new In(filename);
     while (!in.isEmpty()) {
       String word = in.readString();
-      //StdOut.println(String.format("Word: %s", word));
+      // StdOut.println(String.format("Word: %s", word));
       if (word.length() < minimumLength) {
-        //StdOut.println(String.format("Word length is less than minimum: %s", minimumLength));
+        // StdOut.println(String.format("Word length is less than minimum: %s",
+        // minimumLength));
         continue;
       }
       if (searchTable.contains(word)) {
         int frequency = searchTable.get(word);
         frequency++;
-        //StdOut.println(String.format("Have seen %s %s times.", word, frequency));
+        // StdOut.println(String.format("Have seen %s %s times.", word,
+        // frequency));
         searchTable.put(word, frequency);
       } else {
-        //StdOut.println(String.format("First occurrence of word: %s", word));
+        // StdOut.println(String.format("First occurrence of word: %s", word));
         searchTable.put(word, 1);
       }
     }
@@ -32,12 +36,9 @@ public class FrequencyCounter {
     String max = "";
     searchTable.put(max, 0);
     if (searchTable.size() == 0) {
-      //StdOut.println("Search table was not populated.");
       return;
     }
-    //StdOut.printf("Size of search table: %s%n", searchTable.size());
     for (String word : searchTable.keys()) {
-      ////StdOut.printf("word: %s (%s) max: %s (%s)%n", word, searchTable.get(word), max, searchTable.get(max));
       if (searchTable.get(word) > searchTable.get(max)) {
         max = word;
       }
@@ -51,18 +52,13 @@ public class FrequencyCounter {
     }
 
     int minimumLength = Integer.parseInt(args[0]);
-    //StdOut.println(String.format("Minimum length: %s", minimumLength));
 
     String filename = args[1];
-    //StdOut.println(String.format("Filename is: %s", filename));
 
-    //StdOut.println("Setting up new search table.");
-    SymbolTable<String, Integer> searchTable = new SequentialSearchSymbolTable<String, Integer>();
+    SymbolTable<String, Integer> searchTable = new BinarySearchSymbolTable<String, Integer>(10);
 
-    //StdOut.println("Loading...");
     FrequencyCounter.load(searchTable, minimumLength, filename);
 
-    //StdOut.println("Looking for highest frequency word...");
     FrequencyCounter.highestFrequency(searchTable);
   }
 }
