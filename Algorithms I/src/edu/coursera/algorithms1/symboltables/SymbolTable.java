@@ -1,4 +1,4 @@
-package edu.coursera.algorithms1.searchtables;
+package edu.coursera.algorithms1.symboltables;
 
 public interface SymbolTable<Key, Value> {
   void put(Key key, Value value);

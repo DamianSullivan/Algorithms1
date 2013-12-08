@@ -1,4 +1,4 @@
-package edu.coursera.algorithms1.searchtables;
+package edu.coursera.algorithms1.symboltables;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -9,6 +9,8 @@ import java.util.Iterator;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import edu.coursera.algorithms1.symboltables.BinarySearchSymbolTable;
 
 /**
  * Tests the Binary Search implementation of Search Table.

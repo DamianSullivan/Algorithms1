@@ -1,4 +1,4 @@
-package edu.coursera.algorithms1.searchtables;
+package edu.coursera.algorithms1.symboltables;
 
 import edu.princeton.cs.algs4.Queue;
 

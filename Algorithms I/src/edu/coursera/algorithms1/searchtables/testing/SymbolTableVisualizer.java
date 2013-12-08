@@ -1,7 +1,7 @@
 package edu.coursera.algorithms1.searchtables.testing;
 
-import edu.coursera.algorithms1.searchtables.SequentialSearchSymbolTable;
-import edu.coursera.algorithms1.searchtables.SymbolTable;
+import edu.coursera.algorithms1.symboltables.SequentialSearchSymbolTable;
+import edu.coursera.algorithms1.symboltables.SymbolTable;
 import edu.princeton.cs.introcs.In;
 import edu.princeton.cs.introcs.StdOut;
 

@@ -1,4 +1,4 @@
-package edu.coursera.algorithms1.searchtables;
+package edu.coursera.algorithms1.symboltables;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
