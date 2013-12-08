@@ -1,4 +1,4 @@
-package edu.dsullivan.algorithms.unionfind;
+package edu.dsullivan.algorithms.graphs.unionfind;
 
 import edu.princeton.cs.introcs.StdOut;
 

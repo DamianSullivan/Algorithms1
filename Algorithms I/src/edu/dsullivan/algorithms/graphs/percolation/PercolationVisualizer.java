@@ -1,4 +1,4 @@
-package edu.dsullivan.algorithms.unionfind.percolation;
+package edu.dsullivan.algorithms.graphs.percolation;
   /****************************************************************************
  *  Compilation:  javac PercolationVisualizer.java
  *  Execution:    java PercolationVisualizer input.txt
