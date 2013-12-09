@@ -1,7 +1,8 @@
 package edu.dsullivan.algorithms.searching.testing;
 
+import edu.dsullivan.algorithms.searching.binarysearch.SequentialSearchSymbolTable;
+
 import edu.dsullivan.algorithms.searching.binarysearch.SymbolTable;
-import edu.dsullivan.algorithms.searching.linkedlist.SequentialSearchSymbolTable;
 import edu.princeton.cs.introcs.In;
 import edu.princeton.cs.introcs.StdOut;
 
@@ -26,7 +27,7 @@ public class SymbolTableVisualizer {
       }
     }
   }
-  
+
   public static void highestFrequency(SymbolTable<String, Integer> searchTable) {
     // Find the key with the highest frequency count.
     String max = "";
@@ -42,26 +43,26 @@ public class SymbolTableVisualizer {
         max = word;
       }
     }
-    StdOut.println(max + " " + searchTable.get(max));    
+    StdOut.println(max + " " + searchTable.get(max));
   }
-  
+
   public static void main(String[] args) {
     if (args.length == 0) {
       throw new IllegalArgumentException("Need minimum length of keys to consider.");
     }
-    
+
     int minimumLength = Integer.parseInt(args[0]);
     //StdOut.println(String.format("Minimum length: %s", minimumLength));
-    
+
     String filename = args[1];
     //StdOut.println(String.format("Filename is: %s", filename));
-    
+
     //StdOut.println("Setting up new search table.");
     SymbolTable<String, Integer> searchTable = new SequentialSearchSymbolTable<String, Integer>();
 
     //StdOut.println("Loading...");
     SymbolTableVisualizer.load(searchTable, minimumLength, filename);
-    
+
     //StdOut.println("Looking for highest frequency word...");
     SymbolTableVisualizer.highestFrequency(searchTable);
   }
