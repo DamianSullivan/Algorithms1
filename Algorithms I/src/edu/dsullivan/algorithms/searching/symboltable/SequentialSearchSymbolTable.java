@@ -3,7 +3,7 @@ package edu.dsullivan.algorithms.searching.symboltable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import edu.dsullivan.algorithms.searching.binarysearch.SymbolTable;
+import edu.dsullivan.algorithms.searching.symboltable.SymbolTable;
 
 public class SequentialSearchSymbolTable<Key, Value> implements SymbolTable<Key, Value> {
   private Node first;
@@ -22,6 +22,7 @@ public class SequentialSearchSymbolTable<Key, Value> implements SymbolTable<Key,
   }
 
   // Search for the key, return the associated value.
+  @Override
   public Value get(Key key) {
     for (Node x = first; x != null; x = x.next) {
       if (key.equals(x.key)) {
@@ -32,6 +33,7 @@ public class SequentialSearchSymbolTable<Key, Value> implements SymbolTable<Key,
   }
 
   // Search for key. Update value if found. Grow table if new.
+  @Override
   public void put(Key key, Value value) {
     for (Node x = first; x != null; x = x.next) {
       if (key.equals(x.key)) {
@@ -134,9 +136,9 @@ public class SequentialSearchSymbolTable<Key, Value> implements SymbolTable<Key,
     @Override
     public Iterator<Key> iterator() {
       return new KeysIterator();
-    }    
+    }
   }
-  
+
   private class KeysIterator implements Iterator<Key> {
     private Node current = first;
 
