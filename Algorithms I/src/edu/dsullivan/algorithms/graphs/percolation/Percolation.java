@@ -1,4 +1,4 @@
-package edu.dsullivan.algorithms.unionfind.percolation;
+package edu.dsullivan.algorithms.graphs.percolation;
 
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 

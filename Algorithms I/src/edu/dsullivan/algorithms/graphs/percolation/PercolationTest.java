@@ -1,4 +1,4 @@
-package edu.dsullivan.algorithms.unionfind.percolation;
+package edu.dsullivan.algorithms.graphs.percolation;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
