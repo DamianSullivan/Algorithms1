@@ -1,4 +1,4 @@
-package edu.dsullivan.algorithms.binarysearch;
+package edu.dsullivan.algorithms.searching.binarysearch;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
