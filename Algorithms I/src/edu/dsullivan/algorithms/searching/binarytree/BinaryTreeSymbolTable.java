@@ -1,17 +1,17 @@
-package edu.dsullivan.algorithms.searching.binarysearch;
+package edu.dsullivan.algorithms.searching.binarytree;
 
 import edu.dsullivan.algorithms.searching.symboltable.SymbolTable;
 
 import edu.princeton.cs.algs4.Queue;
 
-public class BinarySearchSymbolTable<Key extends Comparable<Key>, Value>
+public class BinaryTreeSymbolTable<Key extends Comparable<Key>, Value>
     implements SymbolTable<Key, Value> {
   private Key[] keys;
   private Value[] vals;
   private int N;
 
   @SuppressWarnings("unchecked")
-  public BinarySearchSymbolTable(int capacity) {
+  public BinaryTreeSymbolTable(int capacity) {
     keys = (Key[]) new Comparable[capacity];
     vals = (Value[]) new Object[capacity];
   }
