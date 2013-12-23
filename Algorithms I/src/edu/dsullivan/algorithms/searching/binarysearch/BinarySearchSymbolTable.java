@@ -1,5 +1,6 @@
 package edu.dsullivan.algorithms.searching.binarysearch;
 
+import edu.dsullivan.algorithms.searching.symboltable.SymbolTable;
 import edu.princeton.cs.algs4.Queue;
 
 public class BinarySearchSymbolTable<Key extends Comparable<Key>, Value>
